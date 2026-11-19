@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EPL eFootball Champions Cup</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">EPL • eFOOTBALL</p>
+      <h1>Champions Cup</h1>
+      <p class="sub">Fixtures, live standings and knockout stage</p>
+    </div>
+    <button id="adminOpen" class="secondary">Admin login</button>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">THE TOURNAMENT</p>
+        <h2>Follow every match.</h2>
+        <p>Results and standings are updated by the tournament administrator.</p>
+      </div>
+      <div class="hero-stat"><strong id="playedCount">0/80</strong><span>Matches played</span></div>
+    </section>
+
+    <section class="panel">
+      <div class="section-head"><div><p class="eyebrow">LEAGUE PHASE</p><h2>Standings</h2></div><span class="muted">3 points for a win • 1 for a draw</span></div>
+      <div class="table-wrap"><table id="standings"><thead><tr><th>#</th><th>Club</th><th>MP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead><tbody><tr><td colspan="10">Loading standings…</td></tr></tbody></table></div>
+      <p class="note">The top 8 clubs qualify for the quarter-finals.</p>
+    </section>
+
+    <section class="panel">
+      <div class="section-head"><div><p class="eyebrow">MATCH CENTRE</p><h2>League fixtures</h2></div>
+        <select id="roundFilter"><option value="all">All fixtures</option></select>
+      </div>
+      <div id="fixtures" class="fixture-list"><p class="muted">Loading fixtures…</p></div>
+    </section>
+
+    <section class="panel">
+      <div class="section-head"><div><p class="eyebrow">FINAL STAGES</p><h2>Knockout stage</h2></div></div>
+      <div id="knockout" class="knockout-grid"><p class="muted">Loading knockout stage…</p></div>
+    </section>
+    <p id="status" class="status" aria-live="polite"></p>
+  </main>
+
+  <dialog id="adminDialog">
+    <form method="dialog" class="dialog-close"><button class="icon-button" aria-label="Close">×</button></form>
+    <div id="loginPanel">
+      <p class="eyebrow">RESTRICTED ACCESS</p><h2>Administrator login</h2>
+      <p class="muted">Only the authorised tournament administrator can edit results.</p>
+      <form id="loginForm" class="stack">
+        <label>Email<input id="email" type="email" autocomplete="username" required value="atinyajohn001@gmail.com"></label>
+        <label>Password<input id="password" type="password" autocomplete="current-password" required></label>
+        <button class="primary" type="submit">Sign in</button>
+        <p id="loginMessage" class="status"></p>
+      </form>
+    </div>
+    <div id="adminPanel" hidden>
+      <p class="eyebrow">ADMIN CONTROL</p><h2>Tournament editor</h2>
+      <p class="muted" id="adminIdentity"></p>
+      <div class="admin-actions">
+        <label class="file-button">Import original tournament backup<input id="backupFile" type="file" accept=".json,application/json"></label>
+        <button id="refreshAdmin" class="secondary">Refresh data</button>
+        <button id="logout" class="danger">Sign out</button>
+      </div>
+      <p class="note">Importing the backup replaces the current club and league-fixture data. Use it once for the initial migration.</p>
+      <div id="adminFixtures" class="admin-fixtures"></div>
+      <p id="adminMessage" class="status"></p>
+    </div>
+  </dialog>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
